@@ -9,8 +9,8 @@ import requests
 from tqdm import tqdm
 
 def getIdsFromLinks(links):
-    ra = "(?<=beatmapsets\/)([0-9]*)(?=#|\n)" # matches format /beatmapsets/xxxxx#xxxxx or /beatmapsets/xxxxx
-    rb = "(.*\/b\/.*)" # matches format /b/xxxxx
+    ra = r"(?<=beatmapsets\/)([0-9]*)(?=#|\n)" # matches format /beatmapsets/xxxxx#xxxxx or /beatmapsets/xxxxx
+    rb = r"(.*\/b\/.*)" # matches format /b/xxxxx
 
     ids = []
 
@@ -52,7 +52,7 @@ def download(ids, path, name):
         if not path.exists(): raise Exception("The specified path {} does not exist!".format(path)) 
 
     mirrors = {
-        "chimu.moe": "https://api.chimu.moe/v1/download/{}?n=0",
+        "nerinyan.moe": "https://api.nerinyan.moe/d/{}",
         "beatconnect.io": "https://beatconnect.io/b/{}"
         }
 
@@ -70,13 +70,13 @@ def download(ids, path, name):
 
             headers = {'User-Agent': 'Mozilla/5.0'}
 
-            # download the beatmap file
-            name_osz = id + ".osz"
-            filename = path.joinpath(name_osz)
-
             resp = requests.get(url, stream=True, headers=headers)
             if resp.status_code == 200:
                 total = int(resp.headers.get('content-length', 0))
+
+                # download the beatmap file
+                name_osz = resp.headers.get("Content-Disposition").split("filename=")[1].strip('"')
+                filename = path.joinpath(name_osz)
 
                 with open(filename, 'wb') as file, tqdm(
                     desc=name_osz,
@@ -126,7 +126,7 @@ ap.add_argument("-f", "--file", required=True, metavar="pool.txt",
    help="a text file containing beatmap links seperated by newline")
 ap.add_argument("-n", "--name", required=True, metavar="example.zip",
    help="the name of the zip file to be created")
-ap.add_argument("-o", "--out", required=False, metavar="D:\match_pool\\", default="",
+ap.add_argument("-o", "--out", required=False, metavar="D:\\match_pool\\", default="",
    help="the directory where downloaded beatmaps are to be saved, "
    "use this if you don't want the beatmaps to be deleted after zipping (make sure the folder exists)")
 args = vars(ap.parse_args())
