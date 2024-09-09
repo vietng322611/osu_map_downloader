@@ -8,7 +8,7 @@
 
 ## About <a name = "about"></a>
 
-An osu! beatmap downloader that uses Beatconnect.io and Chimu.moe mirrors to download beatmaps from links stored in a text file and zips them afterwards. I made this because zipping mappools is a pain.
+An osu! beatmap downloader that uses Beatconnect.io and Chimu.moe (now has Nerinyan.moe too) mirrors to download beatmaps from links stored in a text file and zips them afterwards. I made this because zipping mappools is a pain.
 
 ## Getting Started <a name = "getting_started"></a>
 
