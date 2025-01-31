@@ -138,7 +138,7 @@ ap = argparse.ArgumentParser(description='Download beatmaps from a list of links
 
 ap.add_argument("-f", "--file", required=False, metavar="pool.txt", default="pool.txt",
    help="a text file containing beatmap links seperated by newline")
-ap.add_argument("-n", "--name", required=False, metavar="example.zip", default="pool.zip",
+ap.add_argument("-n", "--name", required=False, metavar="pool.zip", default="pool.zip",
    help="the name of the zip file to be created")
 ap.add_argument("-o", "--out", required=False, metavar="D:\\match_pool\\", default="",
    help="the directory where downloaded beatmaps are to be saved, "
