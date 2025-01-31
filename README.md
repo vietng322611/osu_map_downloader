@@ -5,10 +5,11 @@
 - [About](#about)
 - [Getting Started](#getting_started)
 - [Usage](#usage)
+- [File example](#file-example)
 
 ## About <a name = "about"></a>
 
-An osu! beatmap downloader that uses Beatconnect.io and Chimu.moe (now has Nerinyan.moe too) mirrors to download beatmaps from links stored in a text file and zips them afterwards. I made this because zipping mappools is a pain.
+An osu! beatmap downloader that uses Beatconnect.io and Nerinyan.moe mirrors to download beatmaps from links stored in a text file and zips them afterwards.
 
 ## Getting Started <a name = "getting_started"></a>
 
@@ -21,7 +22,7 @@ Python 3
 1) Clone the repository
 
 ```
-git clone https://github.com/manav2511/osu_map_downloader.git
+git clone https://github.com/vietng322611/osu_map_downloader.git
 ```
 
 2) Install dependencies
@@ -36,8 +37,6 @@ Example
 ```
 python map_dl.py -f example.txt -n example.zip
 ```
-
-See [example.txt](example.txt) to understand how to store the links.
 
 ## Usage <a name = "usage"></a>
 
@@ -65,4 +64,25 @@ optional arguments:
                         use this if you don't want the beatmaps to be deleted after zipping (make sure the folder exists)
 ```
 
+## File example <a name = "file-example"></a>
 
+/beatmapsets/[set_id]#[diff_id] or /beatmapsets/[set_id]
+
+```
+https://osu.ppy.sh/beatmapsets/2203300#osu/4675812
+https://osu.ppy.sh/beatmapsets/2287992
+```
+
+/b/[diff_id]
+
+```
+https://osu.ppy.sh/b/4675812
+https://osu.ppy.sh/b/4881796
+```
+
+Only diff id (MUST BE **DIFF ID**, set id won't work)
+
+```
+4675812
+4881796
+```

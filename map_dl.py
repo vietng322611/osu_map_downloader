@@ -8,24 +8,32 @@ from pathlib import Path
 import requests
 from tqdm import tqdm
 
-def getIdsFromLinks(links):
+def getIdsFromLinks(links: str) -> list:
     ra = r"(?<=beatmapsets\/)([0-9]*)(?=#|\n)" # matches format /beatmapsets/xxxxx#xxxxx or /beatmapsets/xxxxx
     rb = r"(.*\/b\/.*)" # matches format /b/xxxxx
 
     ids = []
 
-    print("Gettings beatmapset IDs from links..............")
+    bar = tqdm(
+        desc="Gettings beatmapset IDs from links..............",
+        total=len(links.split('\n')),
+        unit="link",
+        unit_scale=True,
+    )
 
     for i in re.findall(ra, links):
         ids.append(i)
+        bar.update()
 
+    failed = []
     for url in re.findall(rb, links):
         try:
             r = requests.head(url, allow_redirects=True, timeout=10)
-
             ids.append(re.findall(ra, r.url)[0])
+
+            bar.update()
         except:
-            print("{} is not a valid beatmap URL!".format(url))
+            failed.append(url)
     
     if len(ids) == 0:
         prefix = 'https://osu.ppy.sh/b/'
@@ -35,8 +43,14 @@ def getIdsFromLinks(links):
             try:
                 r = requests.head(url, allow_redirects=True, timeout=10)
                 ids.append(re.findall(ra, r.url)[0])
+
+                bar.update()
             except:
-                print("{} is not a valid beatmap URL!".format(url))
+                failed.append(url)
+
+    print("\nFailed: %s. Succeess: %s" % (len(failed), len(ids)))
+    for url in failed:
+        print("\t%s" % url)
 
     return ids
 
@@ -122,9 +136,9 @@ def add_to_zip(paths, name):
 # Argument parsing
 ap = argparse.ArgumentParser(description='Download beatmaps from a list of links.')
 
-ap.add_argument("-f", "--file", required=True, metavar="pool.txt",
+ap.add_argument("-f", "--file", required=False, metavar="pool.txt", default="pool.txt",
    help="a text file containing beatmap links seperated by newline")
-ap.add_argument("-n", "--name", required=True, metavar="example.zip",
+ap.add_argument("-n", "--name", required=False, metavar="example.zip", default="pool.zip",
    help="the name of the zip file to be created")
 ap.add_argument("-o", "--out", required=False, metavar="D:\\match_pool\\", default="",
    help="the directory where downloaded beatmaps are to be saved, "
