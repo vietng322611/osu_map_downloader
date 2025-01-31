@@ -49,19 +49,19 @@ python map_dl.py -f links.txt -n zipname.zip
 Help
 
 ```
-python map_dl.py [-h] -f example.txt -n example.zip [-o D:\match_pool\]
+map_dl.py [-h] [-f pool.txt] [-n example.zip] [-o D:\match_pool\]
 
-Download beatmaps from a list of links in a text file.
+Download beatmaps from a list of links.
 
-optional arguments:
+options:
   -h, --help            show this help message and exit
-  -f example.txt, --file example.txt
+  -f pool.txt, --file pool.txt
                         a text file containing beatmap links seperated by newline
   -n example.zip, --name example.zip
                         the name of the zip file to be created
   -o D:\match_pool\, --out D:\match_pool\
-                        the directory where downloaded beatmaps are to be saved,
-                        use this if you don't want the beatmaps to be deleted after zipping (make sure the folder exists)
+                        the directory where downloaded beatmaps are to be saved, use this if you don't want the beatmaps to be deleted after zipping (make sure the     
+                        folder exists)
 ```
 
 ## File example <a name = "file-example"></a>
